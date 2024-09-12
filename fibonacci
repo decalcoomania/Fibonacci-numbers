@@ -1,0 +1,63 @@
+import java.util.Scanner;
+    /**
+     * Клас для обчислення чисел Фібоначчі.
+     */
+    public class Fibonachi_numbers {
+        /**
+         * Головний метод програми.
+         * @param args аргументи командного рядка
+         */
+    public static void main(String[] args) {
+        try (Scanner scanner = new Scanner(System.in)) {
+            // Користувач вводить m, n, k
+            System.out.print("Введіть m: ");
+            int m = scanner.nextInt();
+
+            System.out.print("Введіть n: ");
+            int n = scanner.nextInt();
+
+            System.out.print("Введіть k: ");
+            int k = scanner.nextInt();
+
+            // Перевіряємо, щоб m >= k
+            if (m < k) {
+                System.out.println("Помилка: m повинно бути більшим або рівним k.");
+                return;
+            }
+
+            // Генеруємо масив чисел Фібоначчі
+            int maxIndex = Math.max(m, Math.max(n + k, Math.max(k, n + m)));
+            int[] fib = generateFibonacci(maxIndex);
+
+
+            int sign = (k % 4 == 0) ? 1 : (k % 4 == 2) ? -1 : -1;
+
+            // Вираховуємо вираз
+            boolean result = sign * (fib[m] * fib[n + k] - fib[k] * fib[n + m]) == fib[m - k] * fib[n];
+
+            // Виводимо результат
+            if (result) {
+                System.out.println("true");
+            } else {
+                System.out.println("false");
+            }
+        }
+    }
+        /**
+         * Метод для генерації масиву чисел Фібоначчі.
+         * @param n кількість чисел Фібоначчі для генерації
+         * @return масив чисел Фібоначчі
+         */
+    // Метод для генерації масиву чисел Фібоначчі
+    public static int[] generateFibonacci(int n) {
+        int[] fib = new int[n + 1];
+        fib[0] = 0;
+        fib[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            fib[i] = fib[i - 1] + fib[i - 2];
+        }
+
+        return fib;
+    }
+}
